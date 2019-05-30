@@ -172,7 +172,11 @@ export function activate(context: ExtensionContext) {
 		if (editor.selections.length === item.contents.length) {
 			editor.edit((editBuilder) => {
 				editor.selections.forEach((sel, index) => {
-					editBuilder.insert(sel.active, item.contents[index].content);
+					// Delete selection if there is
+					if (!sel.isEmpty) {
+						editBuilder.delete(sel);
+					}
+					editBuilder.insert(sel.start, item.contents[index].content);
 				});
 				return true;
 			});
