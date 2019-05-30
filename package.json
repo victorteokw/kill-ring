@@ -17,7 +17,9 @@
 	"activationEvents": [
 		"onCommand:killRing.killLine",
 		"onCommand:killRing.killRegion",
-		"onCommand:killRing.killRingSave"
+		"onCommand:killRing.killRingSave",
+		"onCommand:killRing.yank",
+		"onCommand:killRing.yankPop"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -36,8 +38,44 @@
 				"command": "killRing.killRingSave",
 				"title": "Kill Ring Save",
 				"category": "Kill Ring"
+			},
+			{
+				"command": "killRing.yank",
+				"title": "Yank",
+				"category": "Kill Ring"
+			},
+			{
+				"command": "killRing.yankPop",
+				"title": "Yank Pop",
+				"category": "Kill Ring"
 			}
-		]
+		],
+		"configuration": {
+			"title": "Kill Ring",
+			"type": "object",
+			"properties": {
+				"killRing.maxRingLength": {
+					"type": "number",
+					"description": "The max kill ring length.",
+					"default": 30
+				},
+				"killRing.copyToClipboard": {
+					"type": "boolean",
+					"description": "Whether copy killed content to clipboard.",
+					"default": true
+				},
+				"killRing.yankFromClipboard": {
+					"type": "boolean",
+					"description": "Whether yank content from clipboard.",
+					"default": true
+				},
+				"killRing.backupClipboardEntry": {
+					"type": "boolean",
+					"description": "Whether push clipboard data into kill ring before writing.",
+					"default": true
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
